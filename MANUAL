@@ -1,0 +1,104 @@
+
+This is a plugin for VDR.
+The "MPlayer-Plugin" is used to call MPlayer for playback of video
+files (e.g. DivX)
+
+Written by:                  Stefan Hülswitt <s.huelswitt@gmx.de>
+Project's homepage:          http://www.muempf.de/
+Latest version available at: http://www.muempf.de/down/
+
+See the file COPYING for license information.
+
+----------------------------------------------------------------------
+
+For install instructions see the README file.
+For MPlayer plugin documentation skip to the end this file.
+ 
+****
+****
+**** MPlayer plugin
+**** 
+****
+
+The MPlayer plugin is basically a front-end to MPlayer
+<http://www.MPlayerHQ.hu/>. You can select a video file from a browser which
+then is replayed with MPlayer.
+
+The MPlayer menu:
+-----------------
+
+The MPlayer menu is very similar to the the directory browser of the MP3
+plugin. You will see the directories and files you created beneath you the base
+directory of the current source (how to define sources is explained in "Sources
+and playlists" in the MP3 plugin section, but the config file is named
+"mplayersources.conf"). The entries surrounded by [ ] are directories. If you
+press "ok" on a directory, you will descend to this directory. Press "green" to
+return to the parent directory. Use "yellow" to select a different source (see
+"The sources menu" in the MP3 plugin section).
+
+Press "red" to start replay of the current file. MPlayer will be started with
+this file through a shell script (see README file).
+
+There are two different ways to control MPlayer during replay. The control mode
+is selected from the MPlayer plugin setup menu.
+
+The traditional mode:
+---------------------
+
+In traditional mode, only "blue" from VDR's remote is active to abort the
+replay. No other action is passed to MPlayer. It's up to you to configure
+MPlayer to use whatever control device you want (e.g. LIRC, keyboard).
+
+The slave mode:
+---------------
+
+In slave mode the MPlayer plugin acts as a control frontend to MPlayer. All
+important actions are passed from VDR's remote to MPlayer (see README file on
+how to setup your mplayer.sh script for this mode). You can use the following
+keys to control playback:
+
+Down        is pause/unpause.
+
+Up          returns to normal replay.
+
+Right/Left  skips back/forward 10 seconds.
+
+Red         enters jump mode. Enter the number of minutes/percent you want to
+            jump with the number keys. Press "left" to jump backwards, "right"
+            to jump forward and "up" to jump to the absolute position. Press
+            "blue" to toggle the jump unit between minute (m) and percent (%).
+            Any other key cancels jump mode.
+
+Green       skips back 60 seconds.
+
+Yellow      skips forward 60 seconds.
+
+Blue/Back   aborts playback.
+
+Ok          toggles progress display.
+
+0-9         send MPlayer slave command (configurable in plugin setup menu).
+
+In addition the "Volume+","Volume-" and "Mute" keys are routed to MPlayer.
+
+Setup options:
+--------------
+
+There are some configuration options which can be changed from the plugin setup
+menu. Select VDR's setup menu, select "Plugins" and select "mplayer" to enter
+the setup menu.
+
+Control mode:         The MPlayer plugin supports two control modes during
+                      replay: traditional and slave (see description above).
+
+Resume mode:          Selects the mode for resuming playback. "local first"
+                      means that the plugin first tries to use a resume file in
+                      the directory of the video file. Only if this directory is
+                      non-writeable the global resume file is used. "global
+                      only" will use the global file only and "disabled"
+                      disables resume completely.
+
+Slave command key:    Customize the slave commands which are send to MPlayer
+                      when the remote keys "0" to "9" are pressed.
+
+Hide main menu entry: Hides the MPlayer menu entry from the main menu.

@@ -1,0 +1,4 @@
+/videos;movies and tv shows;0;*.avi/*.mp4/*.mkv
+/mnt/nfs/mp3;Remote NFS;0
+/mnt/cdrom;CDROM;1
+/mnt/cdfs;CD-Audio;1;*.wav
