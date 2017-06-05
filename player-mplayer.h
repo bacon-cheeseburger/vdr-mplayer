@@ -78,6 +78,7 @@ public:
   bool SlaveMode(void) const { return slave; }
   void Pause(void);
   void Play(void);
+  void ShowProgress(void);
   void Goto(int Index, bool percent, bool still);
   void SkipSeconds(int secs);
   void SkipTrack(int dir, bool chapter);
