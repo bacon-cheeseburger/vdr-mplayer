@@ -659,7 +659,7 @@ void cMPlayerPlayer::SkipSeconds(int secs)
   if(slave) {
     bool p=false;
     if(playMode==pmPaused) { Play(); p=true; }
-    MPlayerControl("seek %+d 0",secs);
+    MPlayerControl("seek %+d",secs);
     if(p) Pause();
     saveIndex=-1;
     }
