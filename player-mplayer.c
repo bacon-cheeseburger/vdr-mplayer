@@ -395,7 +395,7 @@ bool cMPlayerPlayer::Fork(void)
     char *fname=Quote(file->FullPath());
     if(MPlayerAid>=0) snprintf(aid,sizeof(aid)," AID %d",MPlayerAid);
     else aid[0]=0;
-    snprintf(cmd,sizeof(cmd),"%s \"%s\" %s%s",MPlayerCmd,fname,MPlayerSetup.SlaveMode?"SLAVE":"",aid);
+    snprintf(cmd,sizeof(cmd),"%s \"%s\"",MPlayerCmd,fname);
     free(fname);
     // give index of primary dvb adapter device to mplayer via environment variable
     char dvb[4];
