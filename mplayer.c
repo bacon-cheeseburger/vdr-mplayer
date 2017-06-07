@@ -354,7 +354,7 @@ eOSState cMPlayerControl::ProcessKey(eKeys Key)
       }
 
     bool DoShowMode = true;
-    switch (Key) {
+    switch (int(Key)) {
       case kPlay:
       case kUp:      player->Play(); break;
 
