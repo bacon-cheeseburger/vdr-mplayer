@@ -635,7 +635,7 @@ void cMPlayerPlayer::Pause(void)
     if(playMode==pmPaused) Play();
     else if(playMode==pmPlay) {
       playMode=pmPaused;
-      MPlayerControl("pause");
+      MPlayerControl("cycle pause");
       }
     }
 }
@@ -645,7 +645,7 @@ void cMPlayerPlayer::Play(void)
   if(slave) {
     if(playMode==pmPaused) {
       playMode=pmPlay;
-      MPlayerControl("pause");
+      MPlayerControl("cycle pause");
       }
     }
 }
