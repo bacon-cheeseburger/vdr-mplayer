@@ -625,7 +625,7 @@ void cMPlayerPlayer::MPlayerControl(const char *format, ...)
 void cMPlayerPlayer::ShowProgress(void)
 {
   if(slave) {
-      MPlayerControl("osd_show_progression");
+      MPlayerControl("show-progress");
     }
 }
 
