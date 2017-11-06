@@ -672,12 +672,12 @@ void cMPlayerPlayer::SkipSeconds(int secs)
     }
 }
 
-void cMPlayerPlayer::SkipTrack(int dir, bool chapter)
+void cMPlayerPlayer::SkipTrack(const char *skipcmd, bool chapter)
 {
   if(slave) {
     bool p=false;
     if(playMode==pmPaused) { Play(); p=true; }
-    MPlayerControl("%s %d",chapter ? "seek_chapter":"pt_step",dir);
+    MPlayerControl("%s",chapter ? "seek_chapter":skipcmd);
     if(p) Pause();
     saveIndex=-1;
     }

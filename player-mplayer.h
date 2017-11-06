@@ -81,7 +81,7 @@ public:
   void ShowProgress(void);
   void Goto(int Index, bool percent, bool still);
   void SkipSeconds(int secs);
-  void SkipTrack(int dir, bool chapter);
+  void SkipTrack(const char *skipcmd, bool chapter);
   void KeyCmd(const char *cmd);
   char *GetCurrentName(void);
   virtual bool GetIndex(int &Current, int &Total, bool SnapToIFrame);

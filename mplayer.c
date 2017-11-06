@@ -380,8 +380,8 @@ eOSState cMPlayerControl::ProcessKey(eKeys Key)
       case kYellow|k_Repeat:
       case kYellow:  player->SkipSeconds(60); break;
 
-      case kNext:    player->SkipTrack(1,MPlayerSetup.PrevNextKeyMode!=0); break;
-      case kPrev:    player->SkipTrack(-1,MPlayerSetup.PrevNextKeyMode!=0); break;
+      case kNext:    player->SkipTrack("playlist-next",MPlayerSetup.PrevNextKeyMode!=0); break;
+      case kPrev:    player->SkipTrack("playlist-prev",MPlayerSetup.PrevNextKeyMode!=0); break;
 
       case kBack:    Hide();
                      cRemote::CallPlugin(PLUGIN_NAME_I18N);
