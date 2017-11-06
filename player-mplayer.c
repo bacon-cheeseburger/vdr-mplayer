@@ -640,17 +640,6 @@ void cMPlayerPlayer::Play(void)
     }
 }
 
-void cMPlayerPlayer::SkipSeconds(int secs)
-{
-  if(slave) {
-    bool p=false;
-    if(playMode==pmPaused) { Play(); p=true; }
-    MPlayerControl("seek %+d",secs);
-    if(p) Pause();
-    saveIndex=-1;
-    }
-}
-
 void cMPlayerPlayer::SkipTrack(const char *skipcmd, bool chapter)
 {
   if(slave) {

@@ -78,7 +78,6 @@ public:
   bool SlaveMode(void) const { return slave; }
   void Pause(void);
   void Play(void);
-  void SkipSeconds(int secs);
   void SkipTrack(const char *skipcmd, bool chapter);
   void KeyCmd(const char *cmd);
   char *GetCurrentName(void);
