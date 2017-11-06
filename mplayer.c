@@ -286,7 +286,7 @@ eOSState cMPlayerControl::ProcessKey(eKeys Key)
       case kPlay:
       case kUp:      player->Play(); break;
 
-      case kOk:      player->ShowProgress(); break;
+      case kOk:      player->KeyCmd("show-progress"); break;
 
       case kPause:
       case kDown:    player->Pause(); break;

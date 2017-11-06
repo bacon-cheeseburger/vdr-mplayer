@@ -619,13 +619,6 @@ void cMPlayerPlayer::MPlayerControl(const char *format, ...)
     }
 }
 
-void cMPlayerPlayer::ShowProgress(void)
-{
-  if(slave) {
-      MPlayerControl("show-progress");
-    }
-}
-
 void cMPlayerPlayer::Pause(void)
 {
   if(slave) {
