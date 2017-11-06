@@ -284,7 +284,7 @@ eOSState cMPlayerControl::ProcessKey(eKeys Key)
     bool DoShowMode = true;
     switch (int(Key)) {
       case kPlay:
-      case kUp:      player->Play(); break;
+      case kUp:      if(isPaused) player->Pause(); break;
 
       case kOk:      player->KeyCmd("show-progress"); break;
 
@@ -294,19 +294,19 @@ eOSState cMPlayerControl::ProcessKey(eKeys Key)
       case kFastRew|k_Repeat:
       case kFastRew:
       case kLeft|k_Repeat:
-      case kLeft:    player->KeyCmd("seek -10 exact"); break;
+      case kLeft:    player->KeyCmd("seek -10"); break;
 
       case kFastFwd|k_Repeat:
       case kFastFwd:
       case kRight|k_Repeat:
-      case kRight:   player->KeyCmd("seek 10 exact"); break;
+      case kRight:   player->KeyCmd("seek 10"); break;
 
       case kRed:     break;
 
       case kGreen|k_Repeat:
-      case kGreen:   player->KeyCmd("seek -60 exact"); break;
+      case kGreen:   player->KeyCmd("seek -60"); break;
       case kYellow|k_Repeat:
-      case kYellow:  player->KeyCmd("seek 60 exact"); break;
+      case kYellow:  player->KeyCmd("seek 60"); break;
 
       case kNext:    player->SkipTrack("playlist-next",MPlayerSetup.PrevNextKeyMode!=0); break;
       case kPrev:    player->SkipTrack("playlist-prev",MPlayerSetup.PrevNextKeyMode!=0); break;

@@ -49,6 +49,7 @@
 
 const char *MPlayerCmd = "mplayer.sh";
 const char *globalResumeDir = 0;
+bool isPaused = false;
 
 // -- cMPlayerStatus -----------------------------------------------------------
 
@@ -319,7 +320,6 @@ void cMPlayerPlayer::Activate(bool On)
     run=false;
     if(Active()) {
       if(slave) {
-        Play(); // MPlayer ignores "quit" while paused
         MPlayerControl("quit");
         cTimeMs until(3000); // wait some time until MPlayer is gone
         d(printf("mplayer: waiting for child exit"))
@@ -622,31 +622,16 @@ void cMPlayerPlayer::MPlayerControl(const char *format, ...)
 void cMPlayerPlayer::Pause(void)
 {
   if(slave) {
-    if(playMode==pmPaused) Play();
-    else if(playMode==pmPlay) {
-      playMode=pmPaused;
-      MPlayerControl("cycle pause");
-      }
-    }
-}
-
-void cMPlayerPlayer::Play(void)
-{
-  if(slave) {
-    if(playMode==pmPaused) {
-      playMode=pmPlay;
-      MPlayerControl("cycle pause");
-      }
-    }
+    MPlayerControl("cycle pause");
+    isPaused=!isPaused;
+  }
 }
 
 void cMPlayerPlayer::SkipTrack(const char *skipcmd, bool chapter)
 {
   if(slave) {
-    bool p=false;
-    if(playMode==pmPaused) { Play(); p=true; }
     MPlayerControl("%s",chapter ? "seek_chapter":skipcmd);
-    if(p) Pause();
+    if(isPaused) Pause();
     saveIndex=-1;
     }
 }

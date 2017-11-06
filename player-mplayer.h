@@ -77,7 +77,6 @@ public:
   bool Active(void);
   bool SlaveMode(void) const { return slave; }
   void Pause(void);
-  void Play(void);
   void SkipTrack(const char *skipcmd, bool chapter);
   void KeyCmd(const char *cmd);
   char *GetCurrentName(void);
@@ -86,5 +85,6 @@ public:
   };
 
 extern const char *globalResumeDir;
+extern bool isPaused;
 
 #endif //___DVB_MPLAYER_H
