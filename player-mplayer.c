@@ -650,17 +650,6 @@ void cMPlayerPlayer::Play(void)
     }
 }
 
-void cMPlayerPlayer::Goto(int Index, bool percent, bool still)
-{
-  if(slave) {
-    if(playMode==pmPaused) Play();
-    if(percent) MPlayerControl("seek %d 1",Index);
-    else        MPlayerControl("seek %+d 0",Index-(index/SecondsToFrames(1)));
-    if(still) Pause();
-    saveIndex=-1;
-    }
-}
-
 void cMPlayerPlayer::SkipSeconds(int secs)
 {
   if(slave) {

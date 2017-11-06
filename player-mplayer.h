@@ -79,7 +79,6 @@ public:
   void Pause(void);
   void Play(void);
   void ShowProgress(void);
-  void Goto(int Index, bool percent, bool still);
   void SkipSeconds(int secs);
   void SkipTrack(const char *skipcmd, bool chapter);
   void KeyCmd(const char *cmd);
