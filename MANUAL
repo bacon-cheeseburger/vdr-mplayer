@@ -63,12 +63,6 @@ Up          returns to normal replay.
 
 Right/Left  skips back/forward 10 seconds.
 
-Red         enters jump mode. Enter the number of minutes/percent you want to
-            jump with the number keys. Press "left" to jump backwards, "right"
-            to jump forward and "up" to jump to the absolute position. Press
-            "blue" to toggle the jump unit between minute (m) and percent (%).
-            Any other key cancels jump mode.
-
 Green       skips back 60 seconds.
 
 Yellow      skips forward 60 seconds.

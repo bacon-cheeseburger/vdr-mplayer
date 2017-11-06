@@ -113,17 +113,11 @@ private:
   int lastCurrent, lastTotal;
   char *lastReplayMsg;
   //
-  bool jumpactive, jumphide, jumpmode;
-  int jumpval;
-  //
   void Stop(void);
   void ShowTimed(int Seconds=0);
   void ShowProgress(void);
   void ShowMode(void);
   void ShowTitle(void);
-  void Jump(void);
-  void JumpProcess(eKeys Key);
-  void JumpDisplay(void);
 public:
   cMPlayerControl(void);
   virtual ~cMPlayerControl();
@@ -139,7 +133,7 @@ bool cMPlayerControl::rewind=false;
 cMPlayerControl::cMPlayerControl(void)
 :cControl(player=new cMPlayerPlayer(file,rewind))
 {
-  visible=modeOnly=jumpactive=false;
+  visible=modeOnly=false;
   lastReplayMsg=0;
   display=0;
   ShowTitle();
@@ -248,7 +242,7 @@ void cMPlayerControl::ShowProgress(void)
 
 void cMPlayerControl::ShowMode(void)
 {
-  if(Setup.ShowReplayMode && !jumpactive) {
+  if(Setup.ShowReplayMode) {
     bool Play, Forward;
     int Speed;
     if(GetReplayMode(Play, Forward, Speed)) {
@@ -265,67 +259,6 @@ void cMPlayerControl::ShowMode(void)
        display->SetMode(Play, Forward, Speed);
        }
     }
-}
-
-void cMPlayerControl::JumpDisplay(void)
-{
-  char buf[64];
-  const char *j=trVDR("Jump: "), u=jumpmode?'%':'m';
-  if(!jumpval) sprintf(buf,"%s- %c",  j,u);
-  else         sprintf(buf,"%s%d- %c",j,jumpval,u);
-  display->SetJump(buf);
-}
-
-void cMPlayerControl::JumpProcess(eKeys Key)
-{
-  const int n=Key-k0;
-  switch (Key) {
-    case k0 ... k9:
-      {
-      const int max=jumpmode?100:lastTotal;
-      if(jumpval*10+n <= max) jumpval=jumpval*10+n;
-      JumpDisplay();
-      }
-      break;
-    case kBlue:
-      jumpmode=!jumpmode; jumpval=0;
-      JumpDisplay();
-      break;
-    case kPlay:
-    case kUp:
-      player->Goto(jumpval*(jumpmode?1:60),jumpmode,false);
-      jumpactive=false;
-      break;
-    case kFastRew:
-    case kFastFwd:
-    case kLeft:
-    case kRight:
-      if(!jumpmode) {
-        player->SkipSeconds(jumpval*60 * ((Key==kLeft || Key==kFastRew) ? -1:1));
-        jumpactive=false;
-        }
-      break;
-    default:
-      jumpactive=false;
-      break;
-    }
-
-  if(!jumpactive) {
-    if(jumphide) Hide();
-    else 
-      display->SetJump(0);
-    }
-}
-
-void cMPlayerControl::Jump(void)
-{
-  jumpval=0; jumphide=jumpmode=false;
-  if(!visible) {
-    ShowTimed(); if(!visible) return;
-    jumphide=true;
-    }
-  JumpDisplay();
-  jumpactive=true;
 }
 
 eOSState cMPlayerControl::ProcessKey(eKeys Key)
@@ -348,11 +281,6 @@ eOSState cMPlayerControl::ProcessKey(eKeys Key)
       }
     else ShowTitle();
 
-    if(jumpactive && Key != kNone) {
-      JumpProcess(Key);
-      return osContinue;
-      }
-
     bool DoShowMode = true;
     switch (int(Key)) {
       case kPlay:
@@ -373,7 +301,7 @@ eOSState cMPlayerControl::ProcessKey(eKeys Key)
       case kRight|k_Repeat:
       case kRight:   player->SkipSeconds(10); break;
 
-      case kRed:     Jump(); break;
+      case kRed:     break;
 
       case kGreen|k_Repeat:
       case kGreen:   player->SkipSeconds(-60); break;
