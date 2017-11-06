@@ -48,7 +48,6 @@
 #define MPLAYER_VOL_STEP 3.0
 
 const char *MPlayerCmd = "mplayer.sh";
-int MPlayerAid=-1;
 const char *globalResumeDir = 0;
 
 // -- cMPlayerStatus -----------------------------------------------------------
@@ -391,10 +390,8 @@ bool cMPlayerPlayer::Fork(void)
       }
     for(int i=getdtablesize()-1; i>STDERR_FILENO; i--) close(i);
 
-    char cmd[64+PATH_MAX*2], aid[20];
+    char cmd[64+PATH_MAX*2];
     char *fname=Quote(file->FullPath());
-    if(MPlayerAid>=0) snprintf(aid,sizeof(aid)," AID %d",MPlayerAid);
-    else aid[0]=0;
     snprintf(cmd,sizeof(cmd),"%s \"%s\"",MPlayerCmd,fname);
     free(fname);
     // give index of primary dvb adapter device to mplayer via environment variable

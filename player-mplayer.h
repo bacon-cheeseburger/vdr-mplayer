@@ -87,7 +87,6 @@ public:
   virtual bool GetReplayMode(bool &Play, bool &Forward, int &Speed);
   };
 
-extern int MPlayerAid;
 extern const char *globalResumeDir;
 
 #endif //___DVB_MPLAYER_H

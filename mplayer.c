@@ -350,38 +350,11 @@ eOSState cMPlayerControl::ProcessKey(eKeys Key)
   return osContinue;
 }
 
-// --- cMenuMPlayAid -----------------------------------------------------------
-
-class cMenuMPlayAid : public cOsdMenu {
-public:
-  cMenuMPlayAid(void);
-  virtual eOSState ProcessKey(eKeys Key);
-  };
-
-cMenuMPlayAid::cMenuMPlayAid(void)
-:cOsdMenu(tr("MPlayer Audio ID"),20)
-{
-  Add(new cMenuEditIntItem(tr("Audiostream ID"),&MPlayerAid,-1,255));
-  Display();
-}
-
-eOSState cMenuMPlayAid::ProcessKey(eKeys Key)
-{
-  eOSState state=cOsdMenu::ProcessKey(Key);
-  if(state==osUnknown) {
-    switch(Key) {
-      case kOk: state=osBack; break;
-      default:  break;
-      }
-    }
-  return state;
-}
-
 // --- cMenuMPlayBrowse ---------------------------------------------------------
 
 class cMenuMPlayBrowse : public cMenuBrowse {
 private:
-  bool sourcing, aidedit;
+  bool sourcing;
   eOSState Source(bool second);
   eOSState Summary(void);
 protected:
@@ -396,15 +369,13 @@ static const char *excl_sum[] = { ".*","*.summary","*.txt","*.nfo",0 };
 cMenuMPlayBrowse::cMenuMPlayBrowse(void)
 :cMenuBrowse(MPlaySources.GetSource(),false,false,tr("MPlayer browser"),excl_sum)
 {
-  sourcing=aidedit=false;
+  sourcing=false;
   SetButtons();
 }
 
 void cMenuMPlayBrowse::SetButtons(void)
 {
-  static char blue[12];
-  snprintf(blue,sizeof(blue),MPlayerAid>=0 ? "AID:%d" : "AID:def",MPlayerAid);
-  SetHelp(trVDR("Button$Play"), MPlayerSetup.ResumeMode ? trVDR("Button$Rewind"):0, tr("Source"), blue);
+  SetHelp(trVDR("Button$Play"), MPlayerSetup.ResumeMode ? trVDR("Button$Rewind"):0, tr("Source"));
   Display();
 }
 
@@ -460,7 +431,6 @@ eOSState cMenuMPlayBrowse::ProcessKey(eKeys Key)
   eOSState state=cOsdMenu::ProcessKey(Key);
   if(state==osContinue && !HasSubMenu()) {
     if(sourcing) return Source(true);
-    if(aidedit) { aidedit=false; SetButtons(); }
     }
   bool rew=false;
   if(state==osUnknown) {
@@ -480,8 +450,6 @@ eOSState cMenuMPlayBrowse::ProcessKey(eKeys Key)
         state=Source(false);
         break;
       case kBlue:
-        aidedit=true;
-        state=AddSubMenu(new cMenuMPlayAid);
         break;
       case k0:
         state=Summary();
